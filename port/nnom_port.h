@@ -20,7 +20,7 @@
 #include <stdio.h>
 
 // memory interfaces
-#define nnom_malloc(n)      malloc(n) 
+#define nnom_malloc(n)      malloc(n)
 #define nnom_free(p)        free(p)
 #define nnom_memset(p,v,s)  memset(p,v,s)
 
@@ -30,16 +30,16 @@
 #define NNOM_LOG(...)       printf(__VA_ARGS__)
 
 // NNoM configuration
-#define NNOM_BLOCK_NUM  	(8)		// maximum number of memory block  
-#define DENSE_WEIGHT_OPT 	(1)		// if used fully connected layer optimized weights. 
+#define NNOM_BLOCK_NUM  	(8)		// maximum number of memory block
+#define DENSE_WEIGHT_OPT 	(1)		// if used fully connected layer optimized weights.
 
 // Backend format configuration
-//#define NNOM_USING_CHW            // uncomment if using CHW format. otherwise using default HWC format.
-                                    // Notes, CHW is incompatible with CMSIS-NN. 
+#define NNOM_USING_CHW            // uncomment if using CHW format. otherwise using default HWC format.
+                                    // Notes, CHW is incompatible with CMSIS-NN.
                                     // CHW must be used when using hardware accelerator such as KPU in K210 chip
 
 // Backend selection
-//#define NNOM_USING_CMSIS_NN       // uncomment if use CMSIS-NN for optimation 
+//#define NNOM_USING_CMSIS_NN       // uncomment if use CMSIS-NN for optimation
 
 
 #endif
