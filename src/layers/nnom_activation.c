@@ -257,20 +257,20 @@ static nnom_status_t sigmoid_run( nnom_activation_t* act)
 static nnom_status_t hard_tanh_run( nnom_activation_t* act)
 {
 	nnom_activation_fixed_q_t * a = (nnom_activation_fixed_q_t*)act;
-    if(act->tensor->bitwidth == 16)
-        local_hard_tanh_q15(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit + 8); // a->dec is based on 8 bit. 
-    else
-        local_hard_tanh_q7(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit); 
+	if(act->tensor->bitwidth == 16)
+		local_hard_tanh_q15(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit + 8); // a->dec is based on 8 bit.
+	else
+		local_hard_tanh_q7(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit);
 	return NN_SUCCESS;
 }
 
 static nnom_status_t hard_sigmoid_run( nnom_activation_t* act)
 {
 	nnom_activation_fixed_q_t * a = (nnom_activation_fixed_q_t*)act;
-    if(act->tensor->bitwidth == 16)
-        local_hard_sigmoid_q15(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit + 8); // a->dec is based on 8 bit. 
-    else
-        local_hard_sigmoid_q7(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit); 
+	if(act->tensor->bitwidth == 16)
+		local_hard_sigmoid_q15(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit + 8); // a->dec is based on 8 bit.
+	else
+		local_hard_sigmoid_q7(act->tensor->p_data, tensor_size(act->tensor), a->dec_bit);
 	return NN_SUCCESS;
 }
 

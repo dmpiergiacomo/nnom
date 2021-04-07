@@ -64,7 +64,6 @@ nnom_layer_t *AvgPool(nnom_3d_shape_t k, nnom_3d_shape_t s, nnom_padding_t pad_t
 
 nnom_status_t avgpool_build(nnom_layer_t *layer)
 {
-	uint32_t size;
 	// avg pooling share the same output shape, stride, padding setting.
 	maxpool_build(layer);
 

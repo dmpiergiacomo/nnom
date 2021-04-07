@@ -747,7 +747,7 @@ void local_depthwise_separable_conv_HWC_q7_nonsquare(const q7_t *Im_in,// input 
     int i_out_y, i_out_x, i_ch_out, i_ch_in, i_ch_mult;
     int i_ker_y, i_ker_x;
     int i_out = 0;
-    int shift_idx, shift_steps;
+    int shift_idx;
     int ch_mult = ch_im_out / ch_im_in;
     q31_t conv_out;
 
@@ -818,8 +818,7 @@ void local_depthwise_separable_conv_CHW_q7_nonsquare(const q7_t *Im_in,// input 
 {
     int i_out_y, i_out_x, i_ch_out, i_ch_in, i_ch_mult;
     int i_ker_y, i_ker_x;
-    int i_out = 0;
-    int shift_idx, shift_steps;
+    int shift_idx;
     int ch_mult = ch_im_out / ch_im_in;
     q31_t conv_out;
 
@@ -1386,11 +1385,11 @@ void local_hard_sigmoid_q7(q7_t *data, uint32_t size, int16_t dec_bit)
 // otherwise y = x
 void local_hard_tanh_q7(q7_t *data, uint32_t size, int16_t dec_bit)
 {
-    int16_t int_bit = 7 - dec_bit;
-    int16_t limit = 1 << dec_bit;
+	int16_t int_bit = 7 - dec_bit;
+	int16_t limit = 1 << dec_bit;
 
-    if(dec_bit == 7)
-        return;
+	if(dec_bit == 7)
+		return;
 	
 	// int bit < 0
 	if(int_bit < 0)
