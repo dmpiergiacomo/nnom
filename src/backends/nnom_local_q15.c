@@ -1360,12 +1360,12 @@ void local_hard_sigmoid_q15(q15_t *data, uint32_t size, int16_t dec_bit)
 // otherwise y = x
 void local_hard_tanh_q15(q15_t *data, uint32_t size, int16_t dec_bit)
 {
-    int16_t int_bit = 15 - dec_bit;
-    int16_t limit = 1 << dec_bit;
+	int16_t int_bit = 15 - dec_bit;
+	int16_t limit = 1 << dec_bit;
 
-    if(dec_bit == 15)
-        return;
-	
+	if(dec_bit == 15)
+		return;
+
 	// int bit < 0
 	if(int_bit < 0)
 		for(int i=0; i<size; i++)

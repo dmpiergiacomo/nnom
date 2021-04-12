@@ -105,7 +105,7 @@ static nnom_layer_t *find_last(nnom_layer_t *layer)
 	return layer;
 }
 // input start layer, return layer num
-static uint32_t find_index(nnom_layer_t *start, nnom_layer_t *layer)
+/*static uint32_t find_index(nnom_layer_t *start, nnom_layer_t *layer)
 {
 	uint32_t i = 1;
 	if (start == NULL)
@@ -119,7 +119,7 @@ static uint32_t find_index(nnom_layer_t *start, nnom_layer_t *layer)
 		start = start->out->hook.io->owner;
 	}
 	return 0;
-}
+}*/
 
 static nnom_status_t model_add(nnom_model_t *model, nnom_layer_t *layer)
 {
@@ -483,7 +483,7 @@ size_t nnom_hook_length(nnom_layer_hook_t *hook)
 
 // The shortcut version of find_last() method. 
 // must be used after compiling. 
-static nnom_layer_t *layer_shortcut_find_last(nnom_layer_t *start)
+/*static nnom_layer_t *layer_shortcut_find_last(nnom_layer_t *start)
 {
 	nnom_layer_t *layer = start;
 	if (start == NULL)
@@ -491,7 +491,7 @@ static nnom_layer_t *layer_shortcut_find_last(nnom_layer_t *start)
 	while (layer->shortcut != NULL)
 		layer = layer->shortcut;
 	return layer;
-}
+}*/
 
 // call while compiling.
 // the shorcut is for fast running and fast iliterating.
