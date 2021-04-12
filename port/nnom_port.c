@@ -4,7 +4,7 @@
 #include "nnom_port.h"
 
 
-void LOG(const char * fmt, ...)
+void NNOM_PORT_LOG(const char * fmt, ...)
 {
     va_list args;
     va_start(args, fmt);
