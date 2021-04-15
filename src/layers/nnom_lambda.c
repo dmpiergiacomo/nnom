@@ -62,6 +62,7 @@ nnom_layer_t *Lambda(nnom_status_t (*run)(nnom_layer_t *),
 
 	// user parameters
 	layer->parameters = parameters;
+	layer->super.parameters = parameters;
 
 	// free method
 	layer->super.free = free;

@@ -52,6 +52,7 @@ nnom_layer_io_t *io_init(void *owner_layer, nnom_layer_io_t *io);
 #include "layers/nnom_global_pool.h"
 #include "layers/nnom_input.h"
 #include "layers/nnom_lambda.h"
+#include "layers/nnom_l2_normalize.h"
 #include "layers/nnom_matrix.h"
 #include "layers/nnom_maxpool.h"
 #include "layers/nnom_avgpool.h"

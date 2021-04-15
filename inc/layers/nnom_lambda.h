@@ -45,7 +45,8 @@ typedef struct _nnom_lambda_config_t
 	void *parameters;							// parameters for lambda
 } nnom_lambda_config_t;
 
-
+// Lambda
+nnom_layer_t *lambda_s(const nnom_lambda_config_t * config);
 
 #ifdef __cplusplus
 }

@@ -312,6 +312,7 @@ typedef struct _nnom_layer_t
 	nnom_status_t (*free)(nnom_layer_t *layer);				// a callback to free private resources (comp buf not included) can be left null
 	nnom_buf_t *comp;		   								// computational buf
 	nnom_activation_t *actail; 								// I have an activation, I have a tail, wooo haaaa, act-tail!!!
+	void* parameters;										// layer parameters
 
 	nnom_layer_config_t *config;			// point to the configuration of the layers. for machine api only. 
 	nnom_layer_type_t type; // layer types
