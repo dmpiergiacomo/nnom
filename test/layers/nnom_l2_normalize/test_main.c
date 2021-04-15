@@ -99,7 +99,7 @@ int main()
 	// Casting to Q7
 	// In order to apply rounding, CMSIS DSP library should be rebuilt with
 	// the ROUNDING macro defined.
-	arm_float_to_q7(nnom_in, nnom_input_data, nnom_in_size);
+	arm_float_to_q7(nnom_in_norm, nnom_input_data, nnom_in_size);
 
 	printf("nnom_input_data:\n");
 	for(int i = 0; i < nnom_in_size; i++)
