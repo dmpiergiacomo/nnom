@@ -30,16 +30,17 @@ const nnom_io_config_t input_1_config = {
     .tensor = (nnom_tensor_t*)&tensor_input_1
 };
 
+static float32_t nnom_output_data_f32[4] = {0.};
 const nnom_lambda_config_t lambda_config = {
     .super = {.name = "lambda"},
     .run_func_name = l2norm_run,
     .build_func_name = l2norm_build,
     .free_func_name = l2norm_free,
-    .parameters = NULL
+    .parameters = nnom_output_data_f32
 };
-static int8_t nnom_output_data[128] = {0};
+static int8_t nnom_output_data[4] = {0};
 
-const nnom_shape_data_t tensor_output0_dim[] = {128};
+const nnom_shape_data_t tensor_output0_dim[] = {4};
 const nnom_qformat_param_t tensor_output0_dec[] = {LAMBDA_OUTPUT_DEC};
 const nnom_qformat_param_t tensor_output0_offset[] = {0};
 const nnom_tensor_t tensor_output0 = {

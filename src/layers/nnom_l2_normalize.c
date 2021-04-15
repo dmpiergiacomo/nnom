@@ -1,5 +1,9 @@
 /*
  * Implemenntation of the L2 normalization layer.
+ *
+ * In the current implementation a workaround is in place to retrieve the
+ * float32_t layer output value. To enable such, a float32_t array needs to be
+ * passed as parameters value to the nnom_lambda_config_t structure.
  */
 #include "layers/nnom_l2_normalize.h"
 #include "nnom.h"
@@ -62,6 +66,13 @@ nnom_status_t l2norm_run(nnom_layer_t *layer)
 
 	// Convert back to q7_t
 	arm_float_to_q7(out_f32, layer->out->tensor->p_data, in_size);
+
+	// TODO: Ugly no-brain workaround to get stuff working quickly,
+	//		 but needs to disappear!!!
+	// Copying f32 output value directly to parameters buffer
+	// for when f32 layer output is needed rather than q7_t
+	float32_t * nnom_output_data_f32 = layer->parameters;
+	memcpy(nnom_output_data_f32, out_f32, sizeof(float32_t) * in_size);
 
 	return NN_SUCCESS;
 }

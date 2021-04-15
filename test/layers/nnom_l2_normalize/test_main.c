@@ -118,5 +118,12 @@ int main()
 	}
 	printf("\n");
 
+	printf("nnom_output_data_f32:\n");
+	for(int i = 0; i < nnom_out_size; i++)
+	{
+		printf("%f, ", nnom_output_data_f32[i]);
+	}
+	printf("\n");
+
    return 0;
 }
