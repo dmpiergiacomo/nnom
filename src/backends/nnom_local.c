@@ -1675,6 +1675,26 @@ void local_q7_to_q15(const q7_t *src, q15_t *des, uint32_t size)
         *des++ = (q15_t)*src++<<8;
 }
 
+void local_q7_to_float(const q7_t *src, float32_t *des, uint32_t size)
+{
+	// simple unloop
+	uint32_t count = size;
+	while (count-- > 0)
+	{
+		*des++ = ((float32_t)*src++ / 128.0f);
+	}
+}
+
+void local_float_to_q7(const float32_t *src, q7_t *des, uint32_t size)
+{
+	// simple unloop
+	uint32_t count = size;
+	while (count-- > 0)
+	{
+		*des++ = (q7_t) __NNOM_SSAT((q31_t) (*src++ * 128.0f), 8);
+	}
+}
+
 // right shift q15 to q7
 void local_q15_to_q7(const q15_t *src, q7_t *des,  uint32_t shift, uint32_t size)
 {
@@ -1686,3 +1706,58 @@ void local_q15_to_q7(const q15_t *src, q7_t *des,  uint32_t shift, uint32_t size
     }
 }
 
+void local_power_f32(const float32_t *src, uint32_t size, float32_t *result)
+{
+	float32_t in;
+	float32_t sum = 0.0f;
+
+	// simple unloop
+	uint32_t count = size;
+	while (count-- > 0)
+	{
+		in = *src++;
+		sum += in * in;
+	}
+
+	*result = sum;
+}
+
+void local_max_f32(const float32_t *src, uint32_t size, float32_t *result, uint32_t *index)
+{
+	float32_t maxValue = F32_MIN;
+	float32_t tmp;
+	uint32_t idx = size;
+
+	// simple unloop
+	uint32_t count = size;
+	while (count > 0)
+	{
+		tmp = *src++;
+
+		if (maxValue < tmp)
+		{
+			maxValue = tmp;
+			idx = size - count;
+		}
+
+		count--;
+	}
+
+	*index = idx;
+	*result = maxValue;
+}
+
+void local_sqrt_f32(float32_t in, float32_t *out)
+{
+	*out = sqrtf(in);
+}
+
+void local_mult_f32(const float32_t * srcA, const float32_t * srcB, float32_t * des, uint32_t size)
+{
+	// simple unloop
+	uint32_t count = size;
+	while (count-- > 0)
+	{
+		*des++ = (*srcA++) * (*srcB++);
+	}
+}

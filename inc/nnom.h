@@ -28,10 +28,11 @@ extern "C" {
 #include "nnom_port.h"
 
 #define NNOM_ALIGN  (sizeof(char*))     // alignment when doing memory ops. Equal to size of pointer in byte.
-#define q7_t 	int8_t
-#define q15_t 	int16_t
-#define q31_t 	int32_t
-#define q63_t 	int64_t
+#define q7_t		int8_t
+#define q15_t		int16_t
+#define q31_t		int32_t
+#define q63_t		int64_t
+#define float32_t	float
 
 /* version */
 #define NNOM_MAJORVERSION     0              /**< major version number */
