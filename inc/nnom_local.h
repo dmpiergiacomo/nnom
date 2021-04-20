@@ -24,6 +24,7 @@ extern "C" {
 
 
 #include "stdint.h"
+#include <float.h>
 #include "nnom_port.h"
 
 #ifdef ARM_NN_TRUNCATE
@@ -880,8 +881,29 @@ void local_sub_q15(q15_t * pSrcA, q15_t * pSrcB, q15_t * pDst, const uint16_t ou
 void local_q7_to_q15_no_shift(const q7_t *src, q15_t *des, uint32_t size);
 void local_q7_to_q15(const q7_t *src, q15_t *des, uint32_t size);
 
+// Convert Q7 to float
+void local_q7_to_float(const q7_t *src, float32_t *des, uint32_t size);
+
+// Convert float to Q7
+void local_float_to_q7(const float32_t *src, q7_t *des, uint32_t size);
+
 // q15 shift to q7
 void local_q15_to_q7(const q15_t *src, q7_t *des,  uint32_t shift, uint32_t size);
+
+// power
+void local_power_f32(const float32_t *src, uint32_t size, float32_t *result);
+
+// max
+#ifndef NNOM_USING_CMSIS_NN
+#define F32_MIN   (-FLT_MAX)	// This line must be removed if compiling with CMSIS source
+#endif
+void local_max_f32(const float32_t *src, uint32_t size, float32_t *result, uint32_t *index);
+
+// sqrt
+void local_sqrt_f32(float32_t in, float32_t *out);
+
+// matrix operation float
+void local_mult_f32(const float32_t * pSrcA, const float32_t * pSrcB, float32_t * pDst, uint32_t blockSize);
 
 // y = 1 - x
 void local_1_minor_z_q15(q15_t *src, q15_t *des, uint16_t dec_bit, uint32_t size);

@@ -5,13 +5,13 @@
  * float32_t layer output value. To enable such, a float32_t array needs to be
  * passed as parameters value to the nnom_lambda_config_t structure.
  */
-#include "layers/nnom_l2_normalize.h"
 #include "nnom.h"
+#include "nnom_local.h"
+#include "layers/nnom_l2_normalize.h"
+
+#ifdef NNOM_USING_CMSIS_NN
 #include "arm_math.h"
-
-
-// TODO: This line must be removed if compiling with CMSIS source
-#define F32_MIN   (-FLT_MAX)
+#endif
 
 
 nnom_status_t l2norm_build(nnom_layer_t *layer)
@@ -47,6 +47,7 @@ nnom_status_t l2norm_run(nnom_layer_t *layer)
 	float32_t sq_sum, sq_l2, l2;
 	uint32_t sq_l2_idx;
 
+	#ifdef NNOM_USING_CMSIS_NN
 	// CMSIS DSP supports only a q7_t power operation which returns a q31_t,
 	// therefore this layer is operated as f32 and the casted back to q7_t
 	arm_q7_to_float(layer->in->tensor->p_data, in_f32, in_size);
@@ -66,6 +67,27 @@ nnom_status_t l2norm_run(nnom_layer_t *layer)
 
 	// Convert back to q7_t
 	arm_float_to_q7(out_f32, layer->out->tensor->p_data, in_size);
+	#else
+	// CMSIS DSP supports only a q7_t power operation which returns a q31_t,
+	// therefore this layer is operated as f32 and the casted back to q7_t
+	local_q7_to_float(layer->in->tensor->p_data, in_f32, in_size);
+
+	// Calculate L2-norm
+	local_power_f32(in_f32, in_size, &sq_sum);
+	float32_t dnmtr[2] = {sq_sum, F32_MIN};
+	local_max_f32(dnmtr, 2, &sq_l2, &sq_l2_idx);
+	local_sqrt_f32(sq_l2, &l2);
+
+	// L2-normalize
+	for(int i = 0; i < in_size; i++)
+	{
+		l2_inv[i] = 1 / l2;
+	}
+	local_mult_f32(in_f32, l2_inv, out_f32, in_size);
+
+	// Convert back to q7_t
+	local_float_to_q7(out_f32, layer->out->tensor->p_data, in_size);
+	#endif	// NNOM_USING_CMSIS_NN
 
 	// TODO: Ugly no-brain workaround to get stuff working quickly,
 	//		 but needs to disappear!!!
